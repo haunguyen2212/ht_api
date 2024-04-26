@@ -51,20 +51,4 @@ class LoginRequest extends FormRequest
     {
         return [];
     }
-
-    /**
-     * Handle a failed validation attempt.
-     *
-     * @param Validator $validator
-     * @return void
-     * @throws ValidationException
-     */
-    protected function failedValidation(Validator $validator)
-    {
-        $response = response()->json([
-            'errors' => $validator->errors()
-        ], 422);
-
-        throw new ValidationException($validator, $response);
-    }
 }
