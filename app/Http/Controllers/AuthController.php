@@ -34,7 +34,7 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
-            return response()->json($user);
+            return response()->json(['data' => $user, 'message' => 'Tạo tài khoản thành công']);
         }
         catch(\Exception $e){
             return response()->json([

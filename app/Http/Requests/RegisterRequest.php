@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Validation\ValidationException;
 
 class RegisterRequest extends FormRequest
 {
@@ -25,9 +23,9 @@ class RegisterRequest extends FormRequest
     {
         return [
             'username' => 'required|min:5|max:30',
-            'email' => 'required|max:150|email',
+            'email' => 'required|max:150|email|unique:users,email',
             'password' => 'required|min:5|max:20',
-            'confirm_password' => 'required|same:password',
+            'confirmPassword' => 'nullable|required_with:password|min:5|max:20|same:password',
         ];
     }
 
@@ -42,7 +40,7 @@ class RegisterRequest extends FormRequest
             'username' => 'tên tài khoản',
             'email' => 'email',
             'password' => 'mật khẩu',
-            'confirm_password.same' => 'mật khẩu xác nhận',
+            'confirmPassword' => 'mật khẩu xác nhận',
         ];
     }
 
@@ -54,23 +52,8 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'confirm_password.same' => 'Mật khẩu xác nhận không trùng khớp'
+            'confirmPassword.same' => 'Mật khẩu xác nhận không trùng khớp'
         ];
     }
 
-    /**
-     * Handle a failed validation attempt.
-     *
-     * @param Validator $validator
-     * @return void
-     * @throws ValidationException
-     */
-    protected function failedValidation(Validator $validator)
-    {
-        $response = response()->json([
-            'errors' => $validator->errors()
-        ], 422);
-
-        throw new ValidationException($validator, $response);
-    }
 }
