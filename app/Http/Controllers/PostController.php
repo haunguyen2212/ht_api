@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
 
-class FeaturedPostController extends Controller
+class PostController extends Controller
 {
     protected PostRepository $post;
 
@@ -17,9 +16,8 @@ class FeaturedPostController extends Controller
         $this->post = $postRepository;
     }
 
-    public function index(){
-        $featured_posts = $this->post->getFeaturedPost(3);
-        return response()->json(['data' => $featured_posts, 'message' => 'Success']);
+    public function show($id){
+        $post = $this->post->find($id);
+        return response()->json(['data' => $post, 'message' => 'Success']);
     }
-
 }
