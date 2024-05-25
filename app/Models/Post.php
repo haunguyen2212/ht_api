@@ -14,6 +14,7 @@ class Post extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'title',
+        'slug',
         'excerpt',
         'image',
         'content',
@@ -35,6 +36,10 @@ class Post extends Model
         'created_at', 
         'updated_at',
     ];
+
+    public function categories(){
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
 
     public function tags(){
         return $this->belongsToMany(Tag::class, 'post_tags', 'post_id', 'tag_id');

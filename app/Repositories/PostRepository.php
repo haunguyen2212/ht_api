@@ -17,7 +17,7 @@ class PostRepository extends BaseRepository {
     }
 
     public function getFeaturedPost($limit = 0){
-        $query = $this->with('tags')
+        $query = $this->with(['categories', 'tags'])
             ->join('featured_posts', function($join){
                 $join->on('featured_posts.post_id', 'posts.id')
                     ->whereNull('featured_posts.deleted_at');
@@ -28,5 +28,9 @@ class PostRepository extends BaseRepository {
         }
 
         return $query->get();
+    }
+
+    public function getSinglePost($slug){
+        return $this->with('tags')->where('slug', $slug)->first();
     }
 }

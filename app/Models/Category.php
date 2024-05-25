@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Tag extends Model
+class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'tags';
+    protected $table = 'categories';
     protected $primaryKey = 'id';
     protected $fillable = [
         'name',
@@ -20,7 +20,6 @@ class Tag extends Model
     ];
 
     protected $hidden = [
-        'pivot',
         'created_by',
         'updated_by',
         'deleted_at', 

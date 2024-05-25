@@ -16,8 +16,8 @@ class PostController extends Controller
         $this->post = $postRepository;
     }
 
-    public function show($id){
-        $post = $this->post->find($id);
+    public function show($slug){
+        $post = $this->post->getSinglePost($slug);
         return response()->json(['data' => $post, 'message' => 'Success']);
     }
 }
