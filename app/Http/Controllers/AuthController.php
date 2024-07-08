@@ -33,6 +33,7 @@ class AuthController extends Controller
         return response()->json([
             'token' => $token,
             'type_token' => 'Bearer',
+            'user' => $user,
         ]);
     }
 
@@ -48,7 +49,7 @@ class AuthController extends Controller
         }
         catch(\Exception $e){
             return response()->json([
-                'message' => 'Tạo tài khoản thất bại'
+                'message' => __('message.system_error')
             ], 500);
         }
     }

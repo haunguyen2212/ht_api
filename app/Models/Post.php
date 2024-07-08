@@ -18,7 +18,7 @@ class Post extends Model
         'excerpt',
         'image',
         'content',
-        'category',
+        'category_id',
         'author',
         'publish_status',
         'publish_date_from',
