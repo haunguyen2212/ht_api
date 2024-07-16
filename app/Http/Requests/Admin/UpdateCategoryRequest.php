@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePostRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,8 @@ class UpdatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|max:100',
-            'slug' => 'required|max:100|unique:posts,slug,'.$this->post,
-            'excerpt' => 'nullable|max:1000',
-            'content' => 'required|max:10000',
+            'name' => 'required|max:30',
+            'slug' => 'required|max:30|unique:categories,slug,'.$this->category,
         ];
     }
 
@@ -37,10 +35,8 @@ class UpdatePostRequest extends FormRequest
     public function attributes()
     {
         return [
-            'title' => 'tiêu đề bài viết',
-            'slug' => 'slug bài viết',
-            'excerpt' => 'trích đoạn bài viết',
-            'content' => 'nội dung bài viết'
+            'name' => 'tên danh mục',
+            'slug' => 'slug danh mục',
         ];
     }
 }

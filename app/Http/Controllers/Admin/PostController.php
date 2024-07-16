@@ -34,7 +34,7 @@ class PostController extends Controller
             return response()->json(['data' => $store, 'message' => __('message.create_successful', ['name' => $this->name])]);
         }catch(\Exception $e){
             DB::rollBack();
-            return response()->json(['message' => __('message.system_error')], 500);
+            return response()->json(['message' => $e->getMessage()], 500);
         }    
     }
 
@@ -42,7 +42,7 @@ class PostController extends Controller
         try{
             $data = $request->all();
             DB::beginTransaction();
-            $update = $this->post->findOrFail($id)->update($data);
+            $update = $this->post->update($data, $id);
             DB::commit();
             return response()->json(['data' => $update, 'message' => __('message.update_successful', ['name' => $this->name])]);
         }
@@ -52,10 +52,11 @@ class PostController extends Controller
         }
     }
 
-    public function destroy($id){
+    public function destroy($ids){
         try{
             DB::beginTransaction();
-            $this->post->findOrFail($id)->delete();
+            $ids = explode(',', $ids);
+            $this->post->withoutTrashed()->whereIn('id', $ids)->delete();
             DB::commit();
             return response()->json(['message' => __('message.delete_successful', ['name' => $this->name])]);
         }
@@ -65,10 +66,11 @@ class PostController extends Controller
         }
     }
 
-    public function restore($id){
+    public function restore($ids){
         try{
             DB::beginTransaction();
-            $this->post->onlyTrashed()->findOrFail($id)->restore();
+            $ids = explode(',', $ids);
+            $this->post->onlyTrashed()->whereIn('id', $ids)->restore();
             DB::commit();
             return response()->json(['message' => __('message.restore_successful', ['name' => $this->name])]);
         }
@@ -76,6 +78,21 @@ class PostController extends Controller
             DB::rollBack();
             return response()->json(['message' => __('message.system_error')], 500);
         }
+    }
+
+    public function forceDelete($ids){
+        try{
+            $ids = explode(',', $ids);
+            DB::beginTransaction();
+            $this->post->onlyTrashed()->whereIn('id', $ids)->forceDelete();
+            DB::commit();
+            return response()->json(['message' => __('message.delete_successful', ['name' => $this->name])]);
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            return response()->json(['message' => __('message.system_error')], 500);
+        }
+
     }
 
 }

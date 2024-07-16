@@ -14,6 +14,7 @@ class Category extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'name',
+        'slug',
         'deleted_at',
         'created_by',
         'updated_by',
@@ -26,4 +27,17 @@ class Category extends Model
         'created_at', 
         'updated_at',
     ];
+
+    public static function boot() {
+        parent::boot();
+
+        static::creating(function($table)  {
+            $table->created_by = auth('sanctum')->id() ?? null;
+            $table->updated_by = auth('sanctum')->id() ?? null;
+        });
+
+        static::updating(function($table)  {
+            $table->updated_by = auth('sanctum')->id() ?? null;
+        });
+    }
 }

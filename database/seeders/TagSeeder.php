@@ -18,6 +18,7 @@ class TagSeeder extends Seeder
         DB::table('tags')->insert([
             [
                 'name' => 'Programming',
+                'slug' => 'programming',
                 'created_by' => 1,
                 'updated_by' => 1,
                 'created_at' => $now,
@@ -25,6 +26,7 @@ class TagSeeder extends Seeder
             ],
             [
                 'name' => 'Algorithm',
+                'slug' => 'algorithm',
                 'created_by' => 1,
                 'updated_by' => 1,
                 'created_at' => $now,
@@ -32,6 +34,7 @@ class TagSeeder extends Seeder
             ],
             [
                 'name' => 'Sort',
+                'slug' => 'sort',
                 'created_by' => 1,
                 'updated_by' => 1,
                 'created_at' => $now,
@@ -39,6 +42,7 @@ class TagSeeder extends Seeder
             ],
             [
                 'name' => 'C/C++',
+                'slug' => 'c-c++',
                 'created_by' => 1,
                 'updated_by' => 1,
                 'created_at' => $now,

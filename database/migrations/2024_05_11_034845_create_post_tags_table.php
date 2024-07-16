@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('post_id')->unsigned();
             $table->bigInteger('tag_id')->unsigned();
-            $table->dateTime('deleted_at')->nullable();
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();

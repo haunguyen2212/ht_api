@@ -14,6 +14,7 @@ class Tag extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'name',
+        'slug',
         'deleted_at',
         'created_by',
         'updated_by',

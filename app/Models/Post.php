@@ -37,6 +37,19 @@ class Post extends Model
         'updated_at',
     ];
 
+    public static function boot() {
+        parent::boot();
+
+        static::creating(function($table)  {
+            $table->created_by = auth('sanctum')->id() ?? null;
+            $table->updated_by = auth('sanctum')->id() ?? null;
+        });
+
+        static::updating(function($table)  {
+            $table->updated_by = auth('sanctum')->id() ?? null;
+        });
+    }
+
     public function categories(){
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
