@@ -14,6 +14,7 @@ Route::get('/user', function (Request $request) {
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('register', [AuthController::class, 'register'])->name('register');
 Route::get('featured-post', [FeaturedPostController::class, 'index'])->name('featured-post');
+Route::get('related-post/{id}', [PostController::class, 'relatedPost'])->name('related-post');
 Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){

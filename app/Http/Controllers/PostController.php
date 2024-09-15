@@ -20,4 +20,9 @@ class PostController extends Controller
         $post = $this->post->getSinglePost($slug);
         return response()->json(['data' => $post, 'message' => 'Success']);
     }
+
+    public function relatedPost($id){
+        $relatedPosts = $this->post->getRelatedPost($id, 2);
+        return response()->json(['data' => $relatedPosts, 'message' => 'Success']);
+    }
 }
