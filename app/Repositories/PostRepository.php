@@ -50,4 +50,20 @@ class PostRepository extends BaseRepository {
             })
             ->first();
     }
+
+    public function getRelatedPost($id, $limit = 0){
+        $now = Carbon::now()->format(config('constants.DATE_TIME_FORMAT'));
+        $query = $this->where('publish_status', 1)
+            ->where('publish_date_from', '<=', $now)
+            ->where(function($q) use ($now){
+                $q->where('publish_date_to', '>=', $now)
+                    ->orWhereNull('publish_date_to');
+            });
+
+        if($limit){
+            $query->limit($limit);
+        }
+        
+        return $query->get();
+    }
 }
