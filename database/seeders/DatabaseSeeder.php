@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             PostSeeder::class,
             PostTagSeeder::class,
             FeaturedPostSeeder::class,
+            FAQSeeder::class,
         ]);
     }
 }

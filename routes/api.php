@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FAQController;
 use App\Http\Controllers\FeaturedPostController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ Route::get('/user1', function (Request $request) {
 Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('register', [AuthController::class, 'register'])->name('register');
 Route::get('featured-post', [FeaturedPostController::class, 'index'])->name('featured-post');
+Route::get('faq', [FAQController::class, 'index'])->name('faq');
 Route::get('related-post/{id}', [PostController::class, 'relatedPost'])->name('related-post');
 Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
 
